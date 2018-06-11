@@ -1,7 +1,7 @@
 <?php
 ob_start();
 include 'connect.php';
-//include 'session_toko_online.php';
+include 'session_toko_online.php';
 //mysql_select_db($database); //connect to database
 ?>
 <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -105,7 +105,18 @@ include 'connect.php';
 						<td><?php echo $data['alamat']; ?></td>
 						<td><?php echo $data['tgl_bayar']; ?></td>
 						<td><?php echo $data['jml_bayar']; ?></td>
-						<td><a class="btn btn-lg btn-primary" style="margin: 3% auto;" href="index.php?page=confirmPayment&nopjl=<?php echo $nopjl;?>" role="button">Validasi &raquo;</a></td>
+						<td>
+						<?php
+							if($data['valid']!=1) {
+						?>
+							<a class="btn btn-lg btn-primary" style="margin: 3% auto;" href="validasi.php?nopjl=<?php echo $data['nopjl'];?>" role="button">Validasi &raquo;</a>
+						<?php
+							}
+							else {
+								echo "valid";
+							}
+						?>
+						</td>
 					</tr>
 					<?php
 						}

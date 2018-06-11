@@ -28,18 +28,19 @@
 </body>
 
 <?php
-		//session_start();
+		session_start();
 		if(isset($_POST['idadmin'])and isset($_POST['username']) and isset($_POST['password'])){
 			$idadmin = $_POST['idadmin'];
 			$username = $_POST['username'];
 			$password = $_POST['password'];
 			$dt = mysqli_query($conn, "select * from admin where idadmin='$idadmin' AND username='$username' AND password='$password' limit 1");
-			$data=mysqli_fetch_assoc($dt);
-			if(isset($data['idadmin'])) {
+			$rowcount = mysqli_num_rows($dt);
+			if($rowcount==1) {
 				$_SESSION['status']=1;
 				header("Location:admin_toko_online.php");
 			}
 			else {
+				$_SESSION['status']=0;
 				echo '<script>alert("Data tidak valid!")</script>';
 			}
 		}
