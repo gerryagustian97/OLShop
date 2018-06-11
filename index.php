@@ -77,7 +77,7 @@
 	</div>
 	<ul>
 		<li><a href='?page=home'>Home</a></li>
-		<li><a href='session_toko_online.php'>Admin</a></li>
+		<li><a href='login_toko_online.php'>Admin</a></li>
 		<li><a href='?page=import'>Import</a></li>
 		<li><a href='?page=payment'>Payment</a></li>
 		<!--<li><a href='generate_pdf.php'>PDF</a></li>-->

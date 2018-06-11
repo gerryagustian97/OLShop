@@ -28,7 +28,7 @@
 </body>
 
 <?php
-		session_start();
+		//session_start();
 		if(isset($_POST['idadmin'])and isset($_POST['username']) and isset($_POST['password'])){
 			$idadmin = $_POST['idadmin'];
 			$username = $_POST['username'];
@@ -40,7 +40,7 @@
 				header("Location:admin_toko_online.php");
 			}
 			else {
-				echo "Salah";
+				echo '<script>alert("Data tidak valid!")</script>';
 			}
 		}
 ?>	
