@@ -3,7 +3,7 @@
 	//mysql_select_db($database); //connect to database
 	
 	//session_start();
-	if(isset($_POST['nama']) and isset($_POST['nohp'])and isset($_POST['alamat'])and isset($_POST['tanggal'])){
+	if(isset($_POST['nama']) and isset($_POST['email'])and isset($_POST['nohp'])and isset($_POST['alamat'])and isset($_POST['tanggal'])){
 		$dtnopjlsblm = mysqli_query($conn, "select nopjl from penjualan order by nopjl desc limit 1");
 		$data=mysqli_fetch_assoc($dtnopjlsblm);
 		$nopjlsblm = (int) substr($data['nopjl'], -5);
@@ -21,6 +21,7 @@
 		}
 		
 		$nama=$_POST['nama'];
+		$email=$_POST['email'];
 		$nohp=$_POST['nohp'];
 		$alamat=$_POST['alamat'];
 		$tanggal=$_POST['tanggal'];
@@ -31,14 +32,23 @@
 		<p style="color: white;">No. Transaksi Anda : <?php echo $nopjl."<br>";?></p>
 		<p style="color: white;">Silahkan bayar pada menu Payment</p>
 		<?php
-		foreach ($_SESSION['cart'] as $keys => $datas) {
-			$idbarang = $datas['idbarang'];
-			$quantity = $datas['quantity'];
-			$harga = $datas['harga'];
-			mysqli_query($conn, "insert into jual(nopjl,idbarang,harga,jumlah) values('$nopjl','$idbarang','$harga','$quantity')");
-			mysqli_query($conn, "update barang set stok=stok-'$quantity' where idbarang='$idbarang'");
+			/*$message = "Nomor Penjualan Anda adalah ".$nopjl."";
+			$to=$email;
+			$subject="Activation Code For Talkerscode.com";
+			$from = 'gerryagustian97@gmail.com';
+			$body='Nomor Penjualan Anda adalah '.$nopjl.' Klik Link Berikut <a href="index.php?page=confirmPayment&nopjl='.$nopjl.'">Verify</a>untuk melakukan pembayaran';
+			$headers = "From:".$from;
+			mail($to,$subject,$body,$headers);
+
+			echo "An Activation Code Is Sent To You Check You Emails";*/
+			foreach ($_SESSION['cart'] as $keys => $datas) {
+				$idbarang = $datas['idbarang'];
+				$quantity = $datas['quantity'];
+				$harga = $datas['harga'];
+				mysqli_query($conn, "insert into jual(nopjl,idbarang,harga,jumlah) values('$nopjl','$idbarang','$harga','$quantity')");
+				mysqli_query($conn, "update barang set stok=stok-'$quantity' where idbarang='$idbarang'");
+			}
 		}
-	}
 ?>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -48,6 +58,10 @@
 		<div class="form-group">
 			<label for="nama">Nama:</label>
 			<input type="text" class="form-control" id="nama" placeholder="Masukkan nama anda..." name="nama">
+		</div>
+		<div class="form-group">
+			<label for="email">Email:</label>
+			<input type="email" class="form-control" id="email" placeholder="Masukkan email anda..." name="email">
 		</div>
 		<div class="form-group">
 			<label for="nohp">No. HP:</label>
