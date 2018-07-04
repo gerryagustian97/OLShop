@@ -29,18 +29,20 @@
 		$dtnopjl = mysqli_query($conn, "select nopjl from penjualan order by nopjl desc limit 1");
 		$data=mysqli_fetch_assoc($dtnopjl);
 		$nopjl = $data['nopjl'];?>
-		<p style="color: white;">No. Transaksi Anda : <?php echo $nopjl."<br>";?></p>
-		<p style="color: white;">Silahkan bayar pada menu Payment</p>
+		<!--<p style="color: white;">No. Transaksi Anda : <?php echo $nopjl."<br>";?></p>
+		<p style="color: white;">Silahkan bayar pada menu Payment</p>-->
 		<?php
-			/*$message = "Nomor Penjualan Anda adalah ".$nopjl."";
-			$to=$email;
-			$subject="Activation Code For Talkerscode.com";
-			$from = 'gerryagustian97@gmail.com';
-			$body='Nomor Penjualan Anda adalah '.$nopjl.' Klik Link Berikut <a href="index.php?page=confirmPayment&nopjl='.$nopjl.'">Verify</a>untuk melakukan pembayaran';
-			$headers = "From:".$from;
-			mail($to,$subject,$body,$headers);
+			// use wordwrap() if lines are longer than 70 characters
+			//$msg = wordwrap($msg,70);
+			$headers = "Content-Type: text/html; charset=UTF-8\r\n";
+			$message = '<html><body>';
+			$message .= 'Nomor Penjualan Anda : '.$nopjl.'<br>Silakan lakukan pembayaran dengan klik tombol dibawah ini<br><a class="btn btn-lg btn-primary" style="margin: 3% auto;" href="localhost/PPL1/OL_Shop/OLShop/index.php?page=confirmPayment&nopjl='.$nopjl.'" role="button">Confirm Payment &raquo;</a>';
+			$message .= "</body></html>";
 
-			echo "An Activation Code Is Sent To You Check You Emails";*/
+			// send email
+			mail($email,"Confirm Payment",$message,$headers);
+
+			echo "An Activation Code Is Sent To You Check You Emails";
 			foreach ($_SESSION['cart'] as $keys => $datas) {
 				$idbarang = $datas['idbarang'];
 				$quantity = $datas['quantity'];
